@@ -59,6 +59,20 @@ This will translate English text from `input.txt` to Hindi and save it in `outpu
 - Translates each line using the selected function.
 - Saves the translated output in the specified output file.
 
+# Sample Input Files for Translator
+
+This folder contains sample input and output files for the translation script.
+
+## Files Description
+
+- `input.txt` - Contains sample words in English.
+- `ind_vs_pak_hindi.txt` - Contains sample text in Hindi.
+- `ind_vs_pak_he.txt` - Converted text from Hindi to English.
+- `ind_vs_pak_eh.txt` - Converted text from English to Hindi.
+
+These files can be used to test the translation script.
+
+
 ## Error Handling
 - If a character is not found in the transition table, it defaults to `"others"`, if available.
 - If no valid transition is found, the script stops processing that input.
