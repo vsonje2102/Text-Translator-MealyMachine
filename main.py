@@ -1,84 +1,60 @@
 import sys
-import random
 import string
 import hindi_to_English_transition_table as transition_table_he
 import english_to_Hindi_transition_table as transition_table_eh
 
-def english_to_hindi(input_string, start_state="s0"):
-    #print("Converting English to Hindi")
+def translate(input_string, transition_table, start_state="1"):
     state = start_state
     output = []
     store = False
-    for symbol in input_string:
-        #print(f"Processing symbol: {symbol}")
-        #print(f"Processing state:{state}")
-        if symbol.isdigit() or (symbol in string.punctuation and symbol not in [".", "*"]):
-            if state == "s0":
-                #print("symbol appended") 
-                output.append(symbol)
-            else:
-                store=True
-                sym=symbol
-        else:
-            while symbol not in transition_table_eh.transition_table_eh.get(state, {}):  # If no transition found
-                symbol_temp = "others"
-                #print(f"No transition found for ({state}, {symbol}). Trying 'others' transition.")
 
-                if symbol_temp in transition_table_eh.transition_table_eh.get(state, {}):  # Check 'others'
-                    state, output_symbol = transition_table_eh.transition_table_eh[state][symbol_temp]
-                    #print(f"Transition found for 'others': ({state}, {output_symbol})")
+    for symbol in input_string:
+        #print(f"Processing symbol: {symbol}, Current state: {state}")
+        if symbol.isdigit() or (symbol in string.punctuation and symbol not in [".", "*"]):
+            if state == "1":
+                output.append(symbol)
+                #print("Appending symboL")
+            else:
+                store = True
+                sym = symbol
+                #print("Storing symbol for later")
+        else:
+            while symbol not in transition_table.get(state, {}):  # If no transition found
+                symbol_temp = "others"
+                #print(f"No transition found for symbol: {symbol}")
+                if symbol_temp in transition_table.get(state, {}):  # Check 'others'
+                    state, output_symbol = transition_table[state][symbol_temp]
                     output.append(output_symbol)
+                    #print(f"New state: {state}, Output symbol: {output_symbol}")
                 else:
-                    #print(f"No valid transition found for ({state}, {symbol_temp}). Stopping.")
+                    #print("Stopping.")
                     return "".join(output)  # Stop processing if no valid transition
 
             # Process the symbol after valid transition is found
-            next_state, output_symbol = transition_table_eh.transition_table_eh[state][symbol]
-            #print(f"Transition found: ({state}, {symbol}) -> ({next_state}, {output_symbol})")
+            next_state, output_symbol = transition_table[state][symbol]
             output.append(output_symbol)
+            #print(f"Transition found. New state: {next_state}, Output symbol: {output_symbol}")
             state = next_state
-            if store == True:
+            if store:
                 output.append(sym)
+                #print(f"Appending stored symbol")
                 store = False
-        #print("--------------------------")
-        #print(output)
-        
-    if state != "s0":
-        # translating last symbol completly
-        #print("exited For loop")
+
+    if state != "1":
+        # translating last symbol completely
         symbol = "others"
-        #print(state)
-        next_state, output_symbol = transition_table_eh.transition_table_eh[state][symbol]
-        #print(f"Transition found: ({state}, {symbol}) -> ({next_state}, {output_symbol})")
-        output.append(output_symbol)        
+        next_state, output_symbol = transition_table[state][symbol]
+        output.append(output_symbol)
+        #print(f"Translating last symbol. New state: {next_state}, Output symbol: {output_symbol}")
 
-    return "".join(output)
+    translated_output = "".join(output)
+    #print(f"Translation completed")
+    return translated_output
 
-def hindi_to_english(input_string, start_state="s0"):
-    #print("Converting Hindi to English")
-    state = start_state
-    output = []
-
-    for symbol in input_string:
-        #print(f"Processing symbol: {symbol}")
-        if symbol.isdigit() or symbol in string.punctuation:
-            output.append(symbol)
-        else:
-            if symbol in transition_table_he.transition_table_he.get(state, {}):
-                next_state, output_symbol = transition_table_he.transition_table_he[state][symbol]
-                #print(f"Transition found: ({state}, {symbol}) -> ({next_state}, {output_symbol})")
-                output.append(output_symbol)
-                state = next_state
-            else:
-                #print(f"No transition found for ({state}, {symbol}). Stopping.")
-                return "".join(output)
-  
-    return "".join(output)
-
-def process_file(input_filename, output_filename, function_name):
+def process_file(input_filename, output_filename, transition_table):
     with open(input_filename, 'r', encoding='utf-8') as infile, open(output_filename, 'w', encoding='utf-8') as outfile:
         for line in infile:
-            translated_text = function_name(line.strip())
+            translated_text = translate(line.strip(), transition_table)
             outfile.write(translated_text + "\n")
     print(f"Translation completed. Output saved in {output_filename}")
 
@@ -90,12 +66,16 @@ input_file = sys.argv[1]
 output_file = sys.argv[2]
 flag = sys.argv[3]
 
+print(f"Input file: {input_file}, Output file: {output_file}, Flag: {flag}")
+
 if flag == '-eh':
-    translation_function = english_to_hindi
+    transition_table = transition_table_eh.transition_table_eh
+    print("Using English to Hindi transition table.")
 elif flag == '-he':
-    translation_function = hindi_to_english
+    transition_table = transition_table_he.transition_table_he
+    print("Using Hindi to English transition table.")
 else:
     print("Invalid flag! Use -eh for English to Hindi or -he for Hindi to English.")
     sys.exit(1)
 
-process_file(input_file, output_file, translation_function)
+process_file(input_file, output_file, transition_table)

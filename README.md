@@ -1,89 +1,87 @@
-###  English-Hindi/Hindi-English Translator
+# English-Hindi / Hindi-English Translator (v1.1.0)
 
 ## Overview
-This script performs translation between English and Hindi using a **finite state transition table**. The transition tables are stored in separate Python modules:
-- `hindi_to_English_transition_table.py`
-- `english_to_Hindi_transition_table.py`
+This project is a **finite-state machine-based** English-to-Hindi and Hindi-to-English translator. It processes input text character by character, following predefined transition rules to generate the translated output. The transition logic is stored in separate **transition tables**, ensuring accuracy and flexibility.
 
-## Transition Table Format
-Each transition table follows this structure:
-```python
-{
-    "current_state": {
-        "input_symbol": ("next_state", "output_symbol"),
-        "others": ("next_state", "output_symbol")  # Default transition
-    }
-}
-```
-Example:
-```python
-{
-    "s0": {
-        "a": ("s1", "अ"),
-        "b": ("s2", "ब"),
-        "others": ("s0", "")
-    },
-    "s1": {
-        "c": ("s2", "क"),
-        "others": ("s0", "")
-    }
-}
-```
+### How It Works
+1. **Finite State Machine (FSM) Approach:**
+   - The translation process follows a **state-based model**, where each character triggers a state transition.
+   - Depending on the state and input character, the appropriate Hindi or English equivalent is produced.
+   
+2. **Transition Tables:**
+   - The transition tables define how each character transitions to the next state and what output is generated.
+   - Two separate tables are used for **English-to-Hindi** and **Hindi-to-English** translation.
+   
+3. **Command-Line Interface (CLI):**
+   - Users can run the script via the command line, providing an **input file**, an **output file**, and a flag specifying the translation direction.
+   
+### Features
+✅ **Bi-Directional Translation** (English ⬌ Hindi)  
+✅ **Finite State Machine-based processing**  
+✅ **Handles Digits and Punctuation**  
+✅ **Efficient transition logic** for accurate translation  
+✅ **Command-line execution for easy automation**  
 
 ## Usage
-Run the main from the command line:
+Run the script from the command line:
 ```bash
 python main.py <input_file> <output_file> <-eh/-he>
 ```
 Where:
-- `<input_file>`: Path to the input text file
-- `<output_file>`: Path to save the translated output
-- `<-eh>`: English to Hindi translation
-- `<-he>`: Hindi to English translation
+- `<input_file>`: Path to the input text file.
+- `<output_file>`: Path to save the translated output.
+- `-eh`: Translates **English to Hindi**.
+- `-he`: Translates **Hindi to English**.
 
 ### Example:
 ```bash
 python main.py input.txt output.txt -eh
 ```
-This will translate English text from `input.txt` to Hindi and save it in `output.txt`.
+This translates the **English text** in `input.txt` to **Hindi** and saves it in `output.txt`.
+
+## Transition Table Format
+The transition table follows this structure:
+```python
+{
+    "current_state": {
+        "input_character": ("next_state", "output_character"),
+        "others": ("next_state", "output_character")  # Default transition for unknown inputs
+    }
+}
+```
+### Example:
+```python
+{
+    "1": {
+        "a": ("2", "अ"),
+        "b": ("3", "ब"),
+        "others": ("1", "")
+    },
+    "2": {
+        "c": ("3", "क"),
+        "others": ("1", "")
+    }
+}
+```
 
 ## Functions
-### `english_to_hindi(input_string, start_state="s0")`
-- Converts English text to Hindi using the **English-to-Hindi transition table**.
+### `translate(input_string, transition_table, start_state="1")`
+- Takes an **input string**, processes it through the FSM, and returns the **translated output**.
+- Preserves **punctuation and digits**.
 
-### `hindi_to_english(input_string, start_state="s0")`
-- Converts Hindi text to English using the **Hindi-to-English transition table**.
+### `process_file(input_filename, output_filename, transition_table)`
+- Reads the input file, **translates** each line, and writes the result to the output file.
 
-### `process_file(input_filename, output_filename, function_name)`
-- Reads input text file line by line.
-- Translates each line using the selected function.
-- Saves the translated output in the specified output file.
+---
 
-# Sample Input Files for Translator
+## Changes from v1.0.2 to v1.1.0
+| Feature | v1.0.2 (Old) | v1.1.0 (New) |
+|---------|-------------|-------------|
+| **Translation Function** | Separate functions for each direction | **Unified translation function** for both directions |
+| **Transition Table Format** | Used `*` to mark vowels | Differentiation **handled within the table** |
+| **State Naming** | Alphanumeric states (e.g., `s0`, `s1`) | Uses **numeric states** starting from `1` |
+| **Symbol Handling** | Required extra conditions for symbols | **Now seamlessly handled** in FSM |
+| **Efficiency** | Extra logic to handle cases | Optimized FSM for **faster execution** |
 
-This folder contains sample input and output files for the translation script.
-
-## Files Description
-
-- `input.txt` - Contains sample words in English.
-- `ind_vs_pak_hindi.txt` - Contains sample text in Hindi.
-- `ind_vs_pak_he.txt` - Converted text from Hindi to English.
-- `ind_vs_pak_eh.txt` - Converted text from English to Hindi.
-
-These files can be used to test the translation script.
-
-
-## Error Handling
-- If a character is not found in the transition table, it defaults to `"others"`, if available.
-- If no valid transition is found, the script stops processing that input.
-- The script validates user input and prints an error message if incorrect flags are used.
-
-## Dependencies
-- Python 3.x
-- Transition table files (`hindi_to_English_transition_table.py`, `english_to_Hindi_transition_table.py`)
-
-## Notes
-- The script preserves **digits and punctuation** as they are.
-- Ensure the transition table files are properly structured before running the script.
-
+---
 

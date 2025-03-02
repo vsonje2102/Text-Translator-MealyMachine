@@ -1,102 +1,105 @@
 <Vowels>
 अ		a;
-आ		A/aa;
-इ		i;
-ई		I/ii/ee;
-उ		u;
-ऊ		U/uu;
-ऋ		RRi/R^i;
-ॠ		RRI/R^I;
-ऌ		LLi/L^i;
-ॡ		LLI/L^I;
+आ		aa;
+इ		ī;
+ई		ii;
+उ		ū;
+ऊ		uu;
+ऋ		RRi;
+ॠ		RRI;
+ऌ		LLi;
+ॡ		LLI;
 ऎ 		^e;
-ए		e/E;
-ऍ		ae/aE;
-ऐ		ai;
+ए		e;
+ऍ		ae;
+ऐ		aī;
 ऒ 		^o;
-ओ		o/O;
-औ		au;
+ओ		o;
+औ		aū;
 ॲ		aU;
 ऑ		AU;
 ऽ 		.a;
-ॐ		OM, AUM;
-
-<Consonant>
-क	ka/k;
-ख	kha/kh;
-ग	ga/g;
-घ	gha/gh;
-ङ	~Na/~N;	
-					
-च	cha/ch;					
-छ	Cha/Ch;
-ज	ja/j;
-झ	jha/jh;
-ञ	~na/~n;
-	
-ट	Ta/T;					
-ठ	Tha/Th;
-ड	Da/D;
-ढ	Dha/Dh;
-ण	Na/N;
-
-त	ta/t;					
-थ	tha/th;
-द	da/d;
-ध	dha/dh;
-न	na/n;
-
-प	pa/p;					
-फ	pha/ph;
-ब	ba/b;
-भ	bha/bh;
-म	ma/m;
-	
-य	ya/y;				
-र	ra/r;
-ल	la/l;
-व	va/v;	
-
-श	sha/sh;					
-ष	Sha/Sh;
-स	sa/s;
-ह	ha/h;
-ळ	La/L;
-
-<Consonants with Nuqta>
-क़	qa/q;
-ख़	Ka/K;
-ग़	Ga/G;
-ज़	za/z;
-फ़	fa/f;
-ड़	.Da/.D/Ra/R;
-ढ़	.Dha/.Dh/Rha/Rh;
-व़	wa/w;
-
-<Irregular consonant cluster>
-क्ष	kSa/kSha/xa;
-त्र	tra/tr;
-ज्ञ	GYa/j~na;
-श्र 	shra;
+ॐ		OM;
 
 <@Vowels>
-ा		aa/A;
+ा		A;
 ी		i;
-ि		I/ii/ee;
+ि		I;
 ु		u;
-ू		U/uu;
-ृ 		RRi/R^i;
-ॢ		LLi/L^i;
-े		e/E;
+ू		U;
+ृ 		R^i;
+ॢ		L^i;
+े		E;
 ै		ai;
-ो		o/O;
+ो		O;
 ौ 		au;
-ं 		M/.m/.n;
+ं 		.m;
 ः		H;
 ँ 		.N;
 ् 		.h;
 ॅ		.c;
 <END>
+
+
+<Consonant>
+क	ka;
+ख	kh;
+ग	ga;
+घ	gha;
+ङ	~Na;	
+					
+च	cha;					
+छ	Cha;
+ज	ja;
+झ	jha;
+ञ	~na;
+	
+ट	Ta;					
+ठ	Tha;
+ड	Da;
+ढ	Dha;
+ण	Na;
+
+त	ta;					
+थ	tha;
+द	da;
+ध	dha;
+न	na;
+
+प	pa;					
+फ	pha;
+ब	ba;
+भ	bha;
+म	ma;
+	
+य	ya;				
+र	ra;
+ल	la;
+व	va;	
+
+श	sha;					
+ष	Sha;
+स	sa;
+ह	ha;
+ळ	La;
+
+<Consonants with Nuqta>
+क़	qa;
+ख़	Ka;
+ग़	Ga;
+ज़	za;
+फ़	fa;
+ड़	.Da;
+ढ़	.Dha;
+व़	wa;
+
+<Irregular consonant cluster>
+क्ष	kSaa;
+त्र	tra;
+ज्ञ	GYa;
+श्र shra;
+
+
 
 
 
